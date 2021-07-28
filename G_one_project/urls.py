@@ -18,5 +18,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('myconverterapp',include('myconverterapp.urls')),
+    #path('myconverterapp',include('myconverterapp.urls')),
+    path('',include('myconverterapp.urls')),
 ]
+
+handler404 = 'myconverterapp.views.error_404_views'

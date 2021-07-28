@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django import forms
 
+def error_404_views(request,exception):
+    return render(request,'404.html')
+
 def home(request):
     return HttpResponse("Welcome to My Converter App")
 
