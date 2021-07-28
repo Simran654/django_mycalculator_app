@@ -1,0 +1,139 @@
+{% load static%}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title >Scientific Calculator App</title>
+  </head>
+  <body class="bg-light">
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Scientific Calculator</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                 <a class="nav-link" href="#about" style="color:white;">About</a>
+              </li>
+              <li class="nav-item">
+                 <a class="nav-link" href="#instructions" style="color:white;">Instructions</a>
+              </li>
+            </ul>
+        </div>
+     </nav>
+    <div class="container-fluid" style="margin-bottom: 20rem;">
+        {% if error %}
+        <div class="row">
+            <div class="col-md-6" style="margin: 5rem auto 0 auto;">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if result %}
+        <div class="row">
+            <div class="col-md-6" style="margin: 5rem auto 0 auto;">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{q}}={{ans}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-6" style="margin: 5rem auto 0 auto;">
+                <!-- upload image -->
+                <img class="img-fluid" src="{% static 'calculator.jpg' %}" s>
+                <div class="card" style="margin:2rem 0 auto">
+                    <div class="card-body">
+                        <form method="POST" action=" {% url 'submitquery' %} ">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="search" class="form-control" name="query" id="query">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6" style="margin: 0 auto;">
+                                    <input type="submit" class="btn btn-success" style="display:block;margin: 0 auto;">
+                                </div>
+                                <div class="col-md-6" style="margin: 0 auto;">
+                                    <input type="reset" class="btn btn-danger" style="display:block;margin: 0 auto;">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div clas="row">
+            <div class="col-md-6" style="margin:4rem auto 0 auto;">
+              <p class="display-4" id="about" name="about" style="text-align:center; 3rem">
+                About
+              </p>
+              <hr>
+              <p class="lead" style="text-align:center">
+                Our Calculator app can perform mathematical & logical operations
+              </p>
+            </div>
+        </div>
+        <div clas="row">
+            <div class="col-md-6" style="margin:3rem auto 0 auto;">
+              <p class="display-4" id="instructions" name="about" style="text-align:center">
+                Instructions
+              </p>
+              <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4" style="margin:1rem auto 0 auto;">
+              <ul class="list-group">
+                  <li class="list-group-item">+  :Addition</li>
+                  <li class="list-group-item">-  :Substration</li>
+                  <li class="list-group-item">*  :Multiplicitation</li>
+                  <li class="list-group-item">/  :Division </li>
+              </ul>
+            </div>
+            <div class="col-md-4" style="margin:1rem auto 0 auto;">
+              <ul class="list-group">
+                  <li class="list-group-item">// :Floor Division</li>
+                  <li class="list-group-item">sum :SUM operation</li>
+                  <li class="list-group-item">or :Loginal OR operation </li>
+                  <li class="list-group-item">and :Loginal AND operation</li>
+              </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" style="margin-bottom:5rem">
+        <div class="row">
+            <div class="col-md-6" style="margin:10rem auto 0 auto">
+                <form method="POST" action=" {% url 'feedback' %} ">
+                    {% csrf_token %}
+                    <p>Suggession if/any <input type="text" name="firstname" style="width: 600px;"></p>
+                    {#<p>Last Name: <input type="text" name="lastname"></p>#}
+                    <p><input type="submit" value="Submit" class="btn btn-success" style="display:block"></p>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <footer class="fixed-bottom navbar-light" style="background:black; color:white;text-align:center">
+                <p>Thanks for using our app</p>
+            </footer>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
